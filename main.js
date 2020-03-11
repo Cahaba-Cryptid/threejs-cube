@@ -11,6 +11,9 @@ function init() {
     );
   
   renderer = new THREE.WebGLRenderer({antialias: true});
+
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.BasicShadowMap;
   
   renderer.setSize(window.innerWidth, window.innerHeight);
   
@@ -24,8 +27,15 @@ function init() {
   
   camera.position.z = 5;
 
-  let ambientLight = new THREE.AmbientLight( 0xFFFFFF, 5.0);
+  let ambientLight = new THREE.AmbientLight( 0xFFFFFF, 1.5);
   scene.add(ambientLight);
+
+  let pointLight = new THREE.PointLight(0xFFFFFF,0.8, 18);
+  pointLight.position.set(-3, 6, -3);
+  pointLight.castShadow = true;
+  pointLight.shadow.camera.near = 0.1;
+  pointLight.shadow.camera.far = 25;
+  scene.add(pointLight);
 
 }
 
